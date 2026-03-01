@@ -32,6 +32,20 @@
     </div>
 </nav>
 
+<nav class="bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <div class="flex space-x-8">
+                    <a href="{{ route('app.profil') }}" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                        Profil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <!-- Page Content -->
 <main class="py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

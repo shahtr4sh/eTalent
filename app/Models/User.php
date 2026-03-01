@@ -14,7 +14,6 @@ class User extends Authenticatable
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
         // Allow semua user authenticated masuk panel "app"
         if ($panel->getId() === 'app') {
             return true;
@@ -26,6 +25,11 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function pemohon()
+    {
+        return $this->hasOne(\App\Models\Pemohon::class);
     }
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -64,4 +68,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function promotionApplications()
+    {
+        return $this->hasMany(\App\Models\PromotionApplication::class, 'staff_id', 'staff_id');
+    }
+
 }

@@ -1,43 +1,52 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\App\Auth\LoginController;
+use App\Livewire\App\Profile\ShowProfile;
+use App\Livewire\App\Permohonan\Index as PermohonanIndex;
 
-Route::redirect('/', '/app')->middleware('auth');
+/*
+|--------------------------------------------------------------------------
+| APP MODULE (Pemohon)
+|--------------------------------------------------------------------------
+*/
 
-Route::middleware(['auth'])->group(function () {
+// Login APP (tidak perlukan auth)
+Route::prefix('app')->group(function () {
 
-    // Modul Pemohon (APP)
-    Route::prefix('app')->name('app.')->group(function () {
-        Route::get('/', fn () => redirect()->route('app.permohonan.index'));
+    Route::get('/login', [LoginController::class, 'show'])
+        ->name('app.login');
 
+    Route::post('/login', [LoginController::class, 'authenticate'])
+        ->name('app.login.submit');
 
-        Route::get('/permohonan', \App\Livewire\Permohonan\Index::class)
-            ->name('permohonan.index');
+    Route::post('/logout', [LoginController::class, 'logout'])
+        ->middleware('auth')
+        ->name('app.logout');
 
-        Route::get('/permohonan/cipta', \App\Livewire\Permohonan\Form::class)
-            ->name('permohonan.create');
+    // Protected routes
+    Route::middleware('auth')->group(function () {
 
-        Route::get('/permohonan/{permohonan}', \App\Livewire\Permohonan\Show::class)
-            ->name('permohonan.show');
+        // Dashboard /app
+        Route::get('/', ShowProfile::class)
+            ->name('app.dashboard');
 
-        Route::get('/permohonan/{permohonan}/kemaskini', \App\Livewire\Permohonan\Form::class)
-            ->name('permohonan.edit');
+        Route::get('/profil', ShowProfile::class)
+            ->name('app.profil');
 
-        Route::get('/test-livewire', function() {
-            return view('livewire.permohonan.index');
-        });
+        Route::view('/permohonan', 'app.permohonan.index')
+            ->name('app.permohonan.index');
     });
-
-    // Modul Admin
-
-
-    Route::get('/login', function () {
-        return redirect()->route('login'); // route Filament admin/login yang bernama "login"
-    })->name('login');
-
-    // Route::prefix('admin')
-       // ->middleware(['permission:access admin'])
-        // ->group(function () {
-          //  Route::get('/', fn () => view('admin.dashboard'))->name('admin.dashboard');
-      //  });
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN (Filament)
+|--------------------------------------------------------------------------
+*/
+
+// Biarkan Filament urus sendiri /admin
+Route::get('/login', function () {
+    return redirect('/admin/login');
+})->name('login');

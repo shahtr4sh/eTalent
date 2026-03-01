@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PromotionApplication extends Model
 {
     protected $fillable = [
-        'user_id',
+        'staff_id',
         'reference_no',
         'jenis_kenaikan',
         'jawatan_dipohon',
@@ -18,11 +18,17 @@ class PromotionApplication extends Model
         'ptj',
         'status',
         'submitted_at',
+        'is_active',
+        'reviewed_by_staff_id',
+        'reviewed_at',
+        'returned_at',
+        'status_description',
+        'metadata',
     ];
 
-    public function applicant()
+    public function pemohon()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Pemohon::class, 'staff_id', 'staff_id');
     }
 
     public function documents(): HasMany

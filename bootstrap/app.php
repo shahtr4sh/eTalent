@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,11 +12,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function ($middleware) {
-        $middleware->alias([
-            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
-            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
-            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
-        ]);
+
+        $middleware->redirectGuestsTo(function (Request $request) {
+
+            // Jika cuba akses /app route
+            if ($request->is('app') || $request->is('app/*')) {
+                return route('app.login');
+            }
+
+            // Selain itu (admin / filament)
+            return route('login');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

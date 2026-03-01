@@ -16,24 +16,36 @@ class CreatePromotionApplication extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        // Pastikan user_id sentiasa diisi
-        $data['user_id'] = Auth::id();
+        $user = Auth::user();
+
+        // Wajib ada staff_id sebab DB anda sekarang staff_id-based
+        $staffId = $user?->staff_id;
+
+        if (blank($staffId)) {
+            throw new \RuntimeException('Akaun ini belum mempunyai Staff ID. Sila tetapkan staff_id pada users terlebih dahulu.');
+        }
+
+        $data['staff_id'] = $staffId;
 
         // Default status bila create (draf)
         $data['status'] = $data['status'] ?? 'DRAF';
 
+        if (!array_key_exists('is_active', $data)) {
+            $data['is_active'] = 1;
+        }
+
         // Jana reference_no jika belum ada
         $data['reference_no'] = $data['reference_no'] ?? $this->generateReferenceNo();
 
-        // Handle upload docs seperti sedia ada
+        // Handle upload docs
         $docFields = [
-            'doc_cv'              => 'CV',
-            'doc_publications'    => 'PUBLICATIONS',
-            'doc_teaching_project'=> 'TEACHING_PROJECT',
-            'doc_certificates'    => 'CERTIFICATES',
-            'doc_support_letter'  => 'SUPPORT_LETTER',
-            'doc_performance'     => 'PERFORMANCE',
-            'doc_other'           => 'OTHER',
+            'doc_cv'               => 'CV',
+            'doc_publications'     => 'PUBLICATIONS',
+            'doc_teaching_project' => 'TEACHING_PROJECT',
+            'doc_certificates'     => 'CERTIFICATES',
+            'doc_support_letter'   => 'SUPPORT_LETTER',
+            'doc_performance'      => 'PERFORMANCE',
+            'doc_other'            => 'OTHER',
         ];
 
         foreach ($docFields as $field => $code) {
@@ -42,6 +54,9 @@ class CreatePromotionApplication extends CreateRecord
             }
             unset($data[$field]);
         }
+
+        // Pastikan tiada lagi user_id dihantar ke query insert
+        unset($data['user_id']);
 
         return $data;
     }
