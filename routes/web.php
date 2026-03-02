@@ -11,7 +11,7 @@ use App\Livewire\App\Permohonan\Index as PermohonanIndex;
 |--------------------------------------------------------------------------
 */
 
-// Login APP (tidak perlukan auth)
+// Login APP
 Route::prefix('app')->group(function () {
 
     Route::get('/login', [LoginController::class, 'show'])
@@ -50,3 +50,7 @@ Route::prefix('app')->group(function () {
 Route::get('/login', function () {
     return redirect('/admin/login');
 })->name('login');
+
+Route::view('/test', 'layouts.test');
+
+

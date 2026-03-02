@@ -6,9 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }} - Permohonan</title>
 
-    <!-- Alpine.js for dropdown functionality -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -40,6 +37,10 @@
         <a href="{{ route('app.permohonan.index') }}"
            class="text-gray-700 hover:text-blue-900 font-medium text-sm uppercase tracking-wider py-2 border-b-2 {{ request()->routeIs('app.permohonan.index') ? 'border-blue-900 text-blue-900' : 'border-transparent hover:border-blue-900' }} transition duration-150">
             Permohonan
+        </a>
+        <a href="{{ route('app.profil') }}"
+           class="text-gray-700 hover:text-blue-900 font-medium text-sm uppercase tracking-wider py-2 border-b-2 {{ request()->routeIs('app.profil') ? 'border-blue-900 text-blue-900' : 'border-transparent hover:border-blue-900' }} transition duration-150">
+            Profil
         </a>
     </nav>
 
@@ -90,6 +91,8 @@
     </div>
 </main>
 
+<!-- Alpine.js for dropdown functionality -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 <!-- Livewire Scripts -->
 @livewireScripts

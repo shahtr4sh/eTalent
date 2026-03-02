@@ -6,6 +6,9 @@
         <p><strong>Nama:</strong> {{ $pemohon->nama }}</p>
         <p><strong>Emel:</strong> {{ $pemohon->emel_rasmi }}</p>
         <p><strong>Jabatan:</strong> {{ $pemohon->jabatan }}</p>
+        <p><strong>Gred Semasa:</strong> {{ $pemohon->gred_semasa }}</p>
+        <p><strong>Jawatan Semasa:</strong> {{ $pemohon->jawatan_semasa }}</p>
+
     @else
         <p>Profil tidak dijumpai.</p>
     @endif
