@@ -43,6 +43,19 @@ return [
             'transaction_mode' => 'DEFERRED',
         ],
 
+        'kuin_psm' => [
+            'driver' => 'mysql',
+            'host' => env('KUIN_PSM_DB_HOST'),
+            'port' => env('KUIN_PSM_DB_PORT'),
+            'database' => env('KUIN_PSM_DB_DATABASE'),
+            'username' => env('KUIN_PSM_DB_USERNAME'),
+            'password' => env('KUIN_PSM_DB_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
