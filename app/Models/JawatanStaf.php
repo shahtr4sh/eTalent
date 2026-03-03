@@ -10,4 +10,9 @@ class JawatanStaf extends Model
     protected $primaryKey = 'id_rec_jwt';
     public $incrementing = false;
     protected $keyType = 'string';
+
+    protected $casts = [
+        'terkini' => 'boolean',
+        'aktif'   => 'boolean',
+    ];
 }

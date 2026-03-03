@@ -3,35 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PromotionApplication extends Model
 {
+    use SoftDeletes;
+
+    protected $table = 'promotion_applications';
+
     protected $fillable = [
         'staff_id',
         'reference_no',
-        'jenis_kenaikan',
-        'jawatan_dipohon',
-        'gred_dipohon',
-        'ptj',
         'status',
-        'submitted_at',
         'is_active',
-        'reviewed_by_staff_id',
-        'reviewed_at',
-        'returned_at',
-        'status_description',
         'metadata',
+        'content',
+        'reviewed_by',
     ];
 
-    public function pemohon()
-    {
-        return $this->belongsTo(Pemohon::class, 'staff_id', 'staff_id');
-    }
+    protected $casts = [
+        'metadata' => 'array',
+        'content'  => 'array',
+        'is_active' => 'boolean',
+    ];
 
-    public function documents(): HasMany
+    public function documents()
     {
         return $this->hasMany(ApplicationDocument::class, 'promotion_application_id');
     }

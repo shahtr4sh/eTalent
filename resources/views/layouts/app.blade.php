@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }} - Permohonan</title>
+    <title>eTalent</title>
 
     <!-- Alpine.js for dropdown functionality -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -28,60 +28,65 @@
 <body class="font-sans antialiased bg-gray-50">
 
 <!-- HEADER / -->
-<div class="relative z-10 w-full h-24 px-12 bg-white flex justify-between items-center shadow-sm">
-
-    <!-- Logo on left -->
-    <a href="" class="block w-32 flex items-center text-lg md:text-2xl font-bold tracking-widest text-gray-700 hover:text-gray-400">
-        eTalent
-    </a>
-
-    <!-- Navigation in the middle -->
-    <nav class="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-8 h-full">
-        <a href="{{ route('app.permohonan.index') }}"
-           class="text-gray-700 hover:text-blue-900 font-medium text-sm uppercase tracking-wider py-2 border-b-2 {{ request()->routeIs('app.permohonan.index') ? 'border-blue-900 text-blue-900' : 'border-transparent hover:border-blue-900' }} transition duration-150">
-            Permohonan
-        </a>
-    </nav>
-
-    <!-- Profile Dropdown -->
-    <div class="relative" x-data="{ open: false }">
-        <!-- Profile Button -->
-        <button @click="open = !open" class="flex items-center space-x-3 focus:outline-none">
-            <div class="w-10 h-10 rounded-full bg-blue-900 flex items-center justify-center text-white font-semibold">
-                <span>{{ substr(Auth::user()->name ?? 'AD', 0, 2) }}</span>
-            </div>
-            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-        </button>
-
-        <!-- Dropdown Menu -->
-        <div x-show="open" @click.away="open = false"
-             x-cloak
-             class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border z-50">
-
-            <!-- Profile Link -->
-            <a href="{{ route('app.profil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                <div class="flex items-center space-x-2">
-                    <i class="fas fa-user w-4 h-4"></i>
-                    <span>Profile</span>
-                </div>
+<section class="w-full px-8 text-gray-700 bg-white" {!! $attributes ?? '' !!}>
+    <div class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
+        <div class="relative flex flex-col md:flex-row">
+            <a href="/app" class="block w-32 flex items-center text-lg md:text-2xl font-bold tracking-widest text-gray-700 hover:text-gray-400">
+                <span class="mx-auto text-xl font-black leading-none text-gray-900 select-none">e<span class="text-indigo-600" data-primary="indigo-600">Talent.</span></span>
             </a>
+            <nav class="flex flex-wrap items-center mb-5 text-base md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-gray-200">
+                <a href="/app" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Dashboard</a>
+                <a href="{{ route('app.permohonan.index') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Permohonan</a>
+            </nav>
+        </div>
 
-            <!-- Logout Form -->
-            <form method="POST" action="{{ route('app.logout') }}">
-                @csrf
-                <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-sign-out-alt w-4 h-4"></i>
-                        <span>Log keluar</span>
+        <div class="relative" x-data="{ open: false }">
+            <!-- Profile Button with User Info and Icon side by side -->
+            <button @click="open = !open" class="flex items-center space-x-4 focus:outline-none">
+                <!-- User Info (left side) -->
+                <div class="text-right">
+                    <div class="text-sm font-medium text-gray-700">{{ Auth::user()->name ?? 'Nama Pengguna' }}</div>
+                    <div class="text-xs text-gray-500">{{ Auth::user()->staff_id ?? 'ID' }}</div>
+                </div>
+
+                <!-- Profile Icon with dropdown arrow -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-blue-900 flex items-center justify-center text-white font-semibold">
+                        <span>{{ substr(Auth::user()->name ?? 'AD', 0, 2) }}</span>
                     </div>
-                </button>
-            </form>
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+            </button>
+
+
+            <!-- Dropdown Menu (sama) -->
+            <div x-show="open" @click.away="open = false"
+                 x-cloak
+                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border z-50">
+                <!-- Profile Link -->
+                <a href="{{ route('app.profil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-user w-4 h-4"></i>
+                        <span>Profile</span>
+                    </div>
+                </a>
+
+                <!-- Logout Form -->
+                <form method="POST" action="{{ route('app.logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-sign-out-alt w-4 h-4"></i>
+                            <span>Log keluar</span>
+                        </div>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-
-</div>
+</section>
 
 <!-- Page Content -->
 <main class="py-8">

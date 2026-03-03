@@ -18,7 +18,7 @@ class CreatePromotionApplication extends CreateRecord
     {
         $user = Auth::user();
 
-        // Wajib ada staff_id sebab DB anda sekarang staff_id-based
+        // Wajib ada staff_id sebab DB staff_id-based
         $staffId = $user?->staff_id;
 
         if (blank($staffId)) {

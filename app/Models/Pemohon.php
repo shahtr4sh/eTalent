@@ -12,18 +12,26 @@ class Pemohon extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public function jawatanSemasa()
+    public function jawatanStaf()
     {
-        return $this->hasOne(JawatanStaf::class, 'no_staf', 'staff_id')
-            ->where('terkini', '1')
-            ->where('aktif', '1');
+        return $this->hasMany(\App\Models\JawatanStaf::class, 'no_staf', 'staff_id');
     }
 
-    public function jabatanSemasa()
+    public function jawatanStafTerkini()
     {
-        return $this->hasOne(JabatanStaf::class, 'no_staf', 'staff_id')
+        return $this->hasOne(\App\Models\JawatanStaf::class, 'no_staf', 'staff_id')
             ->where('terkini', '1')
-            ->where('aktif', '1');
+            ->orderByDesc('aktif'); // optional
+    }
+
+    public function jabatanStaf()
+    {
+        return $this->hasOne(\App\Models\JabatanStaf::class, 'no_staf', 'staff_id');
+    }
+
+    public function akademikStaf()
+    {
+        return $this->hasMany(\App\Models\AkademikStaf::class, 'no_staf', 'staff_id');
     }
 
     protected $fillable = [

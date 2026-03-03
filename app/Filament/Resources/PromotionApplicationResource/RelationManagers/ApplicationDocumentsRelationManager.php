@@ -17,8 +17,7 @@ class ApplicationDocumentsRelationManager extends RelationManager
 
     public function form(Schema $schema): Schema
     {
-        // Dokumen pilihan (ikut jadual SRS anda)
-        // Anda boleh tambah/ubah ikut SRS
+        // Dokumen pilihan (ikut jadual SRS)
         $docOptions = [
             'D-01' => 'CV/Resume terkini (Wajib)',
             'D-02' => 'Senarai penerbitan (Mengikut polisi)',

@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->index(['kod_jabatan']);
             $table->index(['kod_unit']);
 
-            // Optional: kalau anda mahu elak duplicate row
+            // Optional: kalau mahu elak duplicate row
             $table->unique(['no_staf', 'kod_jabatan', 'kod_unit'], 'uniq_staf_jab_unit');
         });
     }
