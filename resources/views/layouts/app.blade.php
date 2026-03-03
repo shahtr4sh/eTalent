@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,16 +28,12 @@
 <body class="font-sans antialiased bg-gray-50">
 
 <!-- HEADER / -->
-<section class="w-full px-8 text-gray-700 bg-white" {!! $attributes ?? '' !!}>
-    <div class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
+<section class="w-full px-8 text-gray-500 bg-white" {!! $attributes ?? '' !!}>
+    <div class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-8xl">
         <div class="relative flex flex-col md:flex-row">
             <a href="/app" class="block w-32 flex items-center text-lg md:text-2xl font-bold tracking-widest text-gray-700 hover:text-gray-400">
                 <span class="mx-auto text-xl font-black leading-none text-gray-900 select-none">e<span class="text-indigo-600" data-primary="indigo-600">Talent.</span></span>
             </a>
-            <nav class="flex flex-wrap items-center mb-5 text-base md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-gray-200">
-                <a href="/app" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Dashboard</a>
-                <a href="{{ route('app.permohonan.index') }}" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Permohonan</a>
-            </nav>
         </div>
 
         <div class="relative" x-data="{ open: false }">
