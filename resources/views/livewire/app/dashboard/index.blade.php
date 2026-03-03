@@ -9,7 +9,7 @@
         <!-- Cards Grid -->
         <div class="grid max-w-4xl grid-cols-1 gap-3 mx-auto mt-12 md:grid-cols-2 lg:gap-8">
             <!-- Card 1: Buat Permohonan -->
-            <a href="{{ route('app.permohonan.index') }}"
+            <a href="{{ route('app.permohonan.create') }}"
                class="group block transform transition-all duration-300 hover:scale-105">
                 <div class="flex flex-col items-center h-full p-8 bg-gray-100 rounded-2xl hover:bg-gray-200 transition-colors duration-200">
                     <!-- Icon Container -->

@@ -37,7 +37,7 @@ Route::prefix('app')->name('app.')->group(function () {
         ->name('logout');
 
     // Protected routes (require login)
-    Route::middleware(['web', 'auth'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
 
         // ✅ Livewire routes guna Route::get + ::class
         Route::get('/dashboard', DashboardIndex::class)->name('dashboard');

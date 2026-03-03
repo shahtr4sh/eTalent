@@ -82,7 +82,7 @@ class LoginController extends Controller
         Auth::login($user, $request->boolean('remember'));
         $request->session()->regenerate();
 
-        return redirect()->route('app.profil');
+        return redirect()->route('app.dashboard');
     }
     public function logout(Request $request)
     {
